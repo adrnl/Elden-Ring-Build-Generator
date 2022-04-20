@@ -1,14 +1,62 @@
-
 import random
+from dataclasses import dataclass
+
+
+@dataclass
+class Weapon:
+    name: str
+    str: int = 0
+    dex: int = 0
+    int: int = 0
+    fai: int = 0
+    arc: int = 0
+
+dagger = Weapon('Dagger', 5, 9)
+parryDagger = Weapon('Parrying Dagger', 5, 14)
+misericorde = Weapon('Misericorde', 7, 12)
+greatKnife = Weapon('Great Knife', 6, 12)
+bloodstainedDagger = Weapon('Bloodstained Dagger', 9, 12)
+erdsteelDagger = Weapon('Erdsteel Dagger', 7, 12, 0, 14)
+wakizashi = Weapon('Wakizashi', 9, 13)
+celebrantsSickle = Weapon('Celebrant\'s Sickle', 6, 11)
+ivorySickle = Weapon('Ivory Sickle', 6, 11, 13)
+crystalKnife = Weapon('Cystal Knife', 8, 12, 9)
+scorpionsDagger = Weapon('Scorpion\'s Dagger', 6, 12)
+cinqueda = Weapon('Cinqueda', 10, 10)
+glintstoneKris = Weapon('Glinstone Kris', 5, 12, 16)
+reduvia = Weapon('Reduvia', 5, 13, 0, 0, 13)
+bladeOfCalling = Weapon('Blade of Calling', 6, 13, 0, 15)
+blackKnife = Weapon('Black Knife', 8, 12, 0, 18)
+
+meleeWeapons = {
+    'Daggers': [
+        dagger,
+        parryDagger,
+        misericorde,
+        greatKnife,
+        bloodstainedDagger,
+        erdsteelDagger,
+        wakizashi,
+        celebrantsSickle,
+        ivorySickle,
+        crystalKnife,
+        scorpionsDagger,
+        cinqueda,
+        glintstoneKris,
+        reduvia,
+        bladeOfCalling,
+        blackKnife
+    ],
+}
+
 
 meleeWeaponCategories = {
-    'dagger': [
+    'Dagger': [
         'Dagger',
         'Parrying Dagger',
         'Misericorde',
         'Great Knife',
         'Bloodstained Dagger',
-        'Erdsteel Dagger',
         'Wakizashi',
         'Celebrant\'s Sickle',
         'Ivory Sickle',
@@ -18,9 +66,9 @@ meleeWeaponCategories = {
         'Glinstone Kris',
         'Reduvia',
         'Blade of Calling',
-        'Black Knife',
+        'Black Knife'
     ],
-    'straight sword': [
+    'Straight Sword': [
         'Short Sword',
         'Longsword',
         'Broadsword',
@@ -214,7 +262,7 @@ meleeWeaponCategories = {
         'Great Club',
         'Troll\'s Hammer',
         'Dragon Greatclaw',
-        'Watchdog\'s Greatclaw',
+        'Watchdog\'s Staff',
         'Staff of the Avatar',
         'Envoy\'s Greathorn',
         'Ghiza\'s Wheel',
@@ -531,13 +579,14 @@ ashesOfWar = [
     'Ash of War: White Shadow\'s Lure',
 ]
 
-def generateBuild(range, powerstance):
-    if range and powerstance:
+
+def generateBuild(ranged, powerstance):
+    if ranged and powerstance:
         primaryOptions = rangedWeaponCategories['crossbow']
         weapon = random.choice(primaryOptions)
         return [weapon, weapon]
 
-    elif range and not powerstance:
+    elif ranged and not powerstance:
         offhand = random.randint(0, 1)
         if offhand == 0:
             primaryOptions = rangedWeaponCategories['greatbow']
@@ -555,7 +604,7 @@ def generateBuild(range, powerstance):
             secondary = random.choice(secondaryOptions)
             return [primary, secondary]
 
-    elif not range and powerstance:
+    elif not ranged and powerstance:
         primaryWeaponTuple = random.choice(
             list(meleeWeaponCategories.items())
         )
@@ -563,7 +612,7 @@ def generateBuild(range, powerstance):
         weapon = random.choice(primaryOptions)
         return [weapon, weapon]
 
-    elif not range and not powerstance:
+    elif not ranged and not powerstance:
         offhand = random.randint(0, 1)
         if offhand == 0:
             weaponTuple = random.choice(
@@ -585,6 +634,7 @@ def generateBuild(range, powerstance):
             primary = random.choice(primaryOptions)
             secondary = random.choice(secondaryOptions)
             return [primary, secondary]
+
 
 def main():
     print('Ranged Powerstance Build: {0}'.format(generateBuild(True, True)))
